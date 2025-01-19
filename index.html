@@ -21,13 +21,23 @@
   </div>
 
   
-  <div id="lookupFields">
-    Name <input name="name" id="lookupName"><br />
-    Address <input type="text" name="address" id="lookupAddress"><br />
-    Zip <span id="lookupZip"></span><br />
-    Longitude <span id="lookupLongitude" ></span><br />
-    Latitude <span id="lookupLatitude"></span>
-  </div>
+  <table id="lookupFields">
+    <tr>
+      <th>Name</th><td><input name="name" id="lookupName"></td>
+    </tr>
+    <tr>
+      <th>Address</th><td><input type="text" name="address" id="lookupAddress"></td>
+    </tr>
+    <tr>
+      <th>Zip</th><td id="lookupZip"></td>
+    </tr>
+    <tr>
+      <th>Longitude</th><td id="lookupLongitude"></td>
+    </tr>
+    <tr>
+      <th>Latitude</th><td id="lookupLatitude"></td>
+    </tr>
+  </table>
   <div id="buttons">
     <button id="lookupButton">Lookup Address</button>
     <button id="addAddressButton" disabled>Add Delivery</button>
