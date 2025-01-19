@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="settings">
+    Routing key <input type="text" id="apiKey">
+  </div>
+
+  
+  <div id="lookupFields">
+    Name <input name="name" id="lookupName"><br />
+    Address <input type="text" name="address" id="lookupAddress"><br />
+    Zip <span id="lookupZip" /><br />
+    Longitude <span id="lookupLongitude" /><br />
+    Latitude <span id="lookupLatitude" />
+  </div>
+  <div id="buttons">
+    <button id="lookupButton">Lookup Address</button>
+    <button id="addAddressButton" disabled>Add Delivery</button>
+    <button id="addVehicleButton" disabled>Add Vehicle</button>
+    <button id="routeButton">Route</button>
+    <button id="saveButton">Save</button>
+  </div>
+  <table border="1">
+    
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Zip</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+        <th>Route Index</th>
+      </tr>
+    </thead>
+    <tbody id="addressTable"></tbody>
+  </table>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Profile</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Time Window</th>
+      </tr>
+    </thead>
+    <tbody id="vehicleTable"></tbody>
+  </table>
+  <script src="openroute.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
