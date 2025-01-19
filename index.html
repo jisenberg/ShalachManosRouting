@@ -16,16 +16,17 @@
 
 <body>
   <div id="settings">
-    Routing key <input type="text" id="apiKey">
+    Routing key <input type="text" id="apiKey"><br />
+    Boundary <input type="text" name="boundary" id="boundary" value="" />
   </div>
 
   
   <div id="lookupFields">
     Name <input name="name" id="lookupName"><br />
     Address <input type="text" name="address" id="lookupAddress"><br />
-    Zip <span id="lookupZip" /><br />
-    Longitude <span id="lookupLongitude" /><br />
-    Latitude <span id="lookupLatitude" />
+    Zip <span id="lookupZip"></span><br />
+    Longitude <span id="lookupLongitude" ></span><br />
+    Latitude <span id="lookupLatitude"></span>
   </div>
   <div id="buttons">
     <button id="lookupButton">Lookup Address</button>
