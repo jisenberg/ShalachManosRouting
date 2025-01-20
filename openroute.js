@@ -1,15 +1,26 @@
 class OpenRouter {
-  constructor(apikey){
+  constructor(apikey,boundary){
     this.apikey=apikey
     this.baseurl='https://api.openrouteservice.org'
+    this.boundary = boundary
+  }
+  
+  timeToSeconds(timeInput) {
+    const [hours, minutes] = timeInput.split(":").map(Number);
+    return hours * 3600 + minutes * 60;
   }
   
   async lookup(address){
-    const url = this.baseurl + '/geocode/search?' + new URLSearchParams({
+    let params = {
       api_key: this.apikey,
-      text: address.address,
-      'boundary.gid': 'whosonfirst:locality:85949461'
-    }).toString()
+      text: address.address
+    }
+    let boundary = this.boundary
+    console.log(boundary)
+    if (boundary && boundary != ''){
+      params['boundary.gid'] = boundary
+    }
+    const url = this.baseurl + '/geocode/search?' + new URLSearchParams(params).toString()
     let response = await fetch(url)
     let json = await response.json()
     if (json.features[0]){
@@ -24,13 +35,25 @@ class OpenRouter {
   async route(addresses,vehicles){
       const jobs = {
         jobs: addresses.map((address, i) => {
-          return { id: i + 1, description: address.name, location: [address.longitude, address.latitude], service: 300 };
+          const job = { id: i + 1, description: address.name, location: [address.longitude, address.latitude], service: 300 };
+          if (address.start != '' && address.end != ''){
+            job.time_windows = [[
+              this.timeToSeconds(address.start),
+              this.timeToSeconds(address.end)]]
+          }
+          return job
         }),
         vehicles: vehicles.map(v => {
-          return { id: v.id, profile: v.profile, start: v.start, end: v.end, time_window: v.time_window }
-          
+          return { 
+            id: v.id, 
+            profile: v.profile, 
+            start: v.start, 
+            end: v.end, 
+            time_window: v.time_window.map(this.timeToSeconds) 
+          }
         }),
       }
+      console.log(jobs)
       const headers ={
         Accept:'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
         'Content-Type': 'application/json',

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>HTML</title>
+  <title>Shalach Manos Route Planner</title>
   
   <!-- HTML -->
   
@@ -17,16 +17,18 @@
 <body>
   <div id="settings">
     Routing key <input type="text" id="apiKey"><br />
-    Boundary <input type="text" name="boundary" id="boundary" value="" />
+    Boundary <input type="text" name="boundary" id="boundary" value="whosonfirst:locality:85949461" />
   </div>
 
   
   <table id="lookupFields">
     <tr>
       <th>Name</th><td><input name="name" id="lookupName"></td>
+      <th>Start</th><td><input type="time" id="lookupStart" value="" /></td>
     </tr>
     <tr>
       <th>Address</th><td><input type="text" name="address" id="lookupAddress"></td>
+      <th>End</th><td><input type="time" id="lookupEnd" value="" /></td>
     </tr>
     <tr>
       <th>Zip</th><td id="lookupZip"></td>
@@ -41,9 +43,11 @@
   <div id="buttons">
     <button id="lookupButton">Lookup Address</button>
     <button id="addAddressButton" disabled>Add Delivery</button>
-    <button id="addVehicleButton" disabled>Add Vehicle</button>
+    <button id="addVehicleButton" disabled>Add Vehicle</button><br />
     <button id="routeButton">Route</button>
     <button id="saveButton">Save</button>
+    <button id="clearAddresses">Clear deliveries</button>
+    <button id="clearVehicles">Clear Vehicles</button>
   </div>
   <table border="1">
     
@@ -54,6 +58,7 @@
         <th>Zip</th>
         <th>Longitude</th>
         <th>Latitude</th>
+        <th>Time Window</th>
         <th>Route Index</th>
       </tr>
     </thead>
