@@ -59,7 +59,8 @@ class DeliverySystem {
               <td>${address.longitude}</td>
               <td>${address.latitude}</td>
               <td>${timeWindow}</td>
-              <td>${address.route_index ?? ''}</td
+              <td>${address.route_index ?? ''}</td>
+              <td>${address.arrival ?? ''}</td>
           </tr>
         `
     }).join('')

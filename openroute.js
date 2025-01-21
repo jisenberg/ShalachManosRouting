@@ -10,6 +10,17 @@ class OpenRouter {
     return hours * 3600 + minutes * 60;
   }
   
+  formatSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+
+    return formattedTime;
+}
+
+  
   async lookup(address){
     let params = {
       api_key: this.apikey,
@@ -72,7 +83,9 @@ class OpenRouter {
         let route = routing.routes[idx];
         route.steps.forEach((step, index) => {
           if (step.type == "job") {
-            addresses[step.id - 1].route_index = route.vehicle + "-" + (index);
+            let address = addresses[step.id - 1]
+            address.route_index = route.vehicle + "-" + (index);
+            address.arrival = this.formatSecondsToTime(step.arrival)
           }
         });
       }
