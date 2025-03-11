@@ -108,6 +108,33 @@ class DeliverySystem {
     this.updateLookupFields()
   }
   
+  exportAddressTable() {
+    const fileData = JSON.stringify({
+      vehicles: this.vehicles,
+      addresses: this.addresses
+    })
+    const blob = new Blob([fileData], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.download = "routing.json";
+    link.href = url;
+    link.click();
+  }
+  
+  readJsonFile(file){
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.onload = event => {
+        if (event.target) {
+          resolve(JSON.parse(event.target.result))
+        }
+      }
+      fileReader.onerror = error => reject(error)
+      fileReader.readAsText(file)
+    })
+  }
+  
+  
   constructor() {
     this.lookupAddress = {}
     this.addresses = []
@@ -165,6 +192,20 @@ class DeliverySystem {
     document.getElementById('clearVehicles').addEventListener('click',(e) => {
         this.vehicles = []
         this.updateVehicleTable(this.vehicles)
+    })
+    document.getElementById('exportButton').addEventListener('click', (e) => {
+      this.exportAddressTable()
+      console.log('hello')
+    })
+    
+    document.getElementById('importFile').addEventListener('change', async (e) => {
+        if (e.target.files){
+          let { vehicles, addresses } = await this.readJsonFile(e.target.files[0])
+          this.vehicles = vehicles
+          this.addresses = addresses
+          this.updateAddressTable(addresses)
+          this.updateVehicleTable(vehicles)
+        }
     })
   }
 } 
